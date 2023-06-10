@@ -12,10 +12,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Slf4j
-@CrossOrigin(origins = "*")
-@RequiredArgsConstructor
 @RestController
-public class SettingRestController {
+@RequiredArgsConstructor
+@CrossOrigin(origins = "*")
+public class SettingController {
 
     final SettingService settingService;
 
