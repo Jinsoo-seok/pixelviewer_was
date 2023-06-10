@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.cudo.pixelviewer.operate.screen.mapper.ScreenMapper">
+
+    <select id="getScreenList" resultType="Map">
+        SELECT *
+        FROM Screens
+    </select>
+
+    <select id="getScreen" resultType="Map">
+        SELECT *
+        FROM Screens
+        WHERE Screens.screen_id = #{screenId}
+    </select>
+
+    <insert id="postScreen">
+        INSERT INTO Screens
+        (
+            screen_nm, rowsize, columnsize
+        )
+        VALUES
+        (
+            #{screenNm}, #{rowsize}, #{columnsize}
+        )
+    </insert>
+
+    <update id="deleteScreen">
+        DELETE S
+        FROM Screens AS S
+        WHERE S.screen_id = #{screenId}
+    </update>
+
+</mapper>
+

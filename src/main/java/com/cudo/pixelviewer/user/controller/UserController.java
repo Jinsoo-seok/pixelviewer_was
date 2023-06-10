@@ -57,7 +57,7 @@ public class UserController {
 
     @PostMapping("/logout")
     public Map<String, Object> postLogout(HttpServletRequest request
-            , @RequestBody Map<String, Object> param) {
+                                       , @RequestBody Map<String, Object> param) {
         long startTime = System.currentTimeMillis();
         String apiInfo = "["+ request.getRequestURI() + "] [" + request.getMethod() + "]";
         log.info("{} [START] [{}] - {}", apiInfo, startTime, param);
