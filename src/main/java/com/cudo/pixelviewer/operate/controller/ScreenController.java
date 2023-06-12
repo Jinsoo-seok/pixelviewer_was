@@ -1,8 +1,9 @@
-package com.cudo.pixelviewer.operate.screen.controller;
+package com.cudo.pixelviewer.operate.controller;
 
-import com.cudo.pixelviewer.operate.screen.service.ScreenService;
-import com.cudo.pixelviewer.user.service.UserService;
+import com.cudo.pixelviewer.config.ParamException;
+import com.cudo.pixelviewer.operate.service.ScreenService;
 import com.cudo.pixelviewer.util.ParameterUtils;
+import com.cudo.pixelviewer.util.ResponseCode;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
@@ -11,11 +12,13 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.cudo.pixelviewer.util.ParameterUtils.*;
+
 @Slf4j
-@RequestMapping("/api-manager/operate/screen")
 @RestController
 @RequiredArgsConstructor
 @CrossOrigin(origins = "*")
+@RequestMapping("/api-manager/operate/screen")
 public class ScreenController {
 
     final ScreenService screenService;
@@ -27,6 +30,7 @@ public class ScreenController {
         log.info("{} [START] [{}]", apiInfo, startTime);
 
         Map<String, Object> responseMap = new HashMap<>();
+        responseMap.putAll(ParameterUtils.responseOption(ResponseCode.FAIL.getCodeName()));
 
 
         try {
@@ -34,7 +38,6 @@ public class ScreenController {
         }
         catch (Exception exception) {
             log.error("[Exception][getScreenList] - {}", exception.getMessage());
-            responseMap.putAll(ParameterUtils.responseOption("FAIL"));
             responseMap.put("exceptionMessage", exception.getMessage());
         }
 
@@ -53,14 +56,14 @@ public class ScreenController {
         log.info("{} [START] [{}] - {}", apiInfo, startTime, screenId);
 
         Map<String, Object> responseMap = new HashMap<>();
+        responseMap.putAll(ParameterUtils.responseOption(ResponseCode.FAIL.getCodeName()));
 
 
         try {
             responseMap = screenService.getScreen(screenId);
         }
         catch (Exception exception) {
-            log.error("[Exception][getScreenList] - {}", exception.getMessage());
-            responseMap.putAll(ParameterUtils.responseOption("FAIL"));
+            log.error("[Exception][getScreen] - {}", exception.getMessage());
             responseMap.put("exceptionMessage", exception.getMessage());
         }
 
@@ -80,22 +83,14 @@ public class ScreenController {
         log.info("{} [START] [{}] - {}", apiInfo, startTime, param);
 
         Map<String, Object> responseMap = new HashMap<>();
+        responseMap.putAll(ParameterUtils.responseOption(ResponseCode.FAIL.getCodeName()));
 
-        String[] keyList = {"", ""};
 
         try {
-//            parameterValidation(param, keyList);
-//            parameterString("", param.get(""), true, 0, null);
             responseMap = screenService.postScreen(param);
         }
-//        catch (ParamException paramException){
-//            log.error("[paramException][postScreen] - {}", paramException.getMessage());
-//            responseMap.put("code", paramException.getCode());
-//            responseMap.put("message", paramException.getMessage());
-//        }
         catch (Exception exception) {
             log.error("[Exception][postScreen] - {}", exception.getMessage());
-            responseMap.putAll(ParameterUtils.responseOption("FAIL"));
             responseMap.put("exceptionMessage", exception.getMessage());
         }
 
@@ -114,22 +109,23 @@ public class ScreenController {
         log.info("{} [START] [{}] - {}", apiInfo, startTime, param);
 
         Map<String, Object> responseMap = new HashMap<>();
+        responseMap.putAll(ParameterUtils.responseOption(ResponseCode.FAIL.getCodeName()));
 
-        String[] keyList = {"", ""};
+        String[] keyList = {"screenId"};
 
         try {
-//            parameterValidation(param, keyList);
-//            parameterString("", param.get(""), true, 0, null);
+            parameterValidation(param, keyList);
+            parameterInt("screenId", param.get("screenId"), true);
+
             responseMap = screenService.deleteScreen(param);
         }
-//        catch (ParamException paramException){
-//            log.error("[paramException][deleteScreen] - {}", paramException.getMessage());
-//            responseMap.put("code", paramException.getCode());
-//            responseMap.put("message", paramException.getMessage());
-//        }
+        catch (ParamException paramException){
+            log.error("[paramException][deleteScreen] - {}", paramException.getMessage());
+            responseMap.put("code", paramException.getCode());
+            responseMap.put("message", paramException.getMessage());
+        }
         catch (Exception exception) {
             log.error("[Exception][deleteScreen] - {}", exception.getMessage());
-            responseMap.putAll(ParameterUtils.responseOption("FAIL"));
             responseMap.put("exceptionMessage", exception.getMessage());
         }
 
@@ -148,22 +144,24 @@ public class ScreenController {
         log.info("{} [START] [{}] - {}", apiInfo, startTime, param);
 
         Map<String, Object> responseMap = new HashMap<>();
+        responseMap.putAll(ParameterUtils.responseOption(ResponseCode.FAIL.getCodeName()));
 
-        String[] keyList = {"", ""};
+        String[] keyList = {"screenId", "screenNm"};
 
         try {
-//            parameterValidation(param, keyList);
-//            parameterString("", param.get(""), true, 0, null);
+            parameterValidation(param, keyList);
+            parameterInt("screenId", param.get("screenId"), true);
+            parameterString("screenNm", param.get("screenNm"), true, 0, null);
+
             responseMap = screenService.patchScreenName(param);
         }
-//        catch (ParamException paramException){
-//            log.error("[paramException][patchScreenName] - {}", paramException.getMessage());
-//            responseMap.put("code", paramException.getCode());
-//            responseMap.put("message", paramException.getMessage());
-//        }
+        catch (ParamException paramException){
+            log.error("[paramException][patchScreenName] - {}", paramException.getMessage());
+            responseMap.put("code", paramException.getCode());
+            responseMap.put("message", paramException.getMessage());
+        }
         catch (Exception exception) {
             log.error("[Exception][patchScreenName] - {}", exception.getMessage());
-            responseMap.putAll(ParameterUtils.responseOption("FAIL"));
             responseMap.put("exceptionMessage", exception.getMessage());
         }
 
@@ -174,7 +172,7 @@ public class ScreenController {
         return responseMap;
     }
 
-    @PutMapping("/set")
+    @PutMapping
     public Map<String, Object> putScreenSet(HttpServletRequest request
                                         , @RequestBody Map<String, Object> param) {
         long startTime = System.currentTimeMillis();
@@ -182,22 +180,26 @@ public class ScreenController {
         log.info("{} [START] [{}] - {}", apiInfo, startTime, param);
 
         Map<String, Object> responseMap = new HashMap<>();
+        responseMap.putAll(ParameterUtils.responseOption(ResponseCode.FAIL.getCodeName()));
 
-        String[] keyList = {"", ""};
+        String[] keyList = {"screenId", "screenNm", "rowsize", "columnsize"};
 
         try {
-//            parameterValidation(param, keyList);
-//            parameterString("", param.get(""), true, 0, null);
+            parameterValidation(param, keyList);
+            parameterInt("screenId", param.get("screenId"), true);
+            parameterString("screenNm", param.get("screenNm"), true, 0, null);
+            parameterInt("rowsize", param.get("rowsize"), true);
+            parameterInt("columnsize", param.get("columnsize"), true);
+
             responseMap = screenService.putScreenSet(param);
         }
-//        catch (ParamException paramException){
-//            log.error("[paramException][putScreenSet] - {}", paramException.getMessage());
-//            responseMap.put("code", paramException.getCode());
-//            responseMap.put("message", paramException.getMessage());
-//        }
+        catch (ParamException paramException){
+            log.error("[paramException][putScreenSet] - {}", paramException.getMessage());
+            responseMap.put("code", paramException.getCode());
+            responseMap.put("message", paramException.getMessage());
+        }
         catch (Exception exception) {
             log.error("[Exception][putScreenSet] - {}", exception.getMessage());
-            responseMap.putAll(ParameterUtils.responseOption("FAIL"));
             responseMap.put("exceptionMessage", exception.getMessage());
         }
 
@@ -207,5 +209,4 @@ public class ScreenController {
 
         return responseMap;
     }
-
 }

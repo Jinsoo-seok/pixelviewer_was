@@ -1,4 +1,4 @@
-package com.cudo.pixelviewer.operate.screen.service;
+package com.cudo.pixelviewer.operate.service;
 
 import java.util.Map;
 
