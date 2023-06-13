@@ -41,11 +41,20 @@ public enum ResponseCode {
     FAIL_NOT_EXIST_DISPLAY(3201, "FailedNotExistDisplay", "Failed Not Exist Display"),
 
     // Preset : 3300
-    FAIL_INSERT_PRESET(3000, "FailedInsertPreset", "Failed Insert Preset"),
-    FAIL_UPDATE_PRESET(3001, "FailedUpdatePreset", "Failed Update Preset"),
-    FAIL_DUPLICATE_PRESET(3002, "FailedDuplicatePreset", "Failed Duplicate Preset"),
-    FAIL_DELETE_PRESET(3003, "FailedDeletePreset", "Failed Delete Preset"),
-    FAIL_NOT_EXIST_PRESET(3004, "FailedNotExistPreset", "Failed Not Exist Preset");
+    FAIL_INSERT_PRESET(3300, "FailedInsertPreset", "Failed Insert Preset"),
+    FAIL_UPDATE_PRESET(3301, "FailedUpdatePreset", "Failed Update Preset"),
+    FAIL_DUPLICATE_PRESET(3302, "FailedDuplicatePreset", "Failed Duplicate Preset"),
+    FAIL_DELETE_PRESET(3303, "FailedDeletePreset", "Failed Delete Preset"),
+    FAIL_NOT_EXIST_PRESET(3304, "FailedNotExistPreset", "Failed Not Exist Preset"),
+
+    // Preset : 3400
+    FAIL_INSERT_LAYER(3400, "FailedInsertLayer", "Failed Insert Layer"),
+    FAIL_UPDATE_LAYER(3401, "FailedUpdateLayer", "Failed Update Layer"),
+    FAIL_DUPLICATE_LAYER(3402, "FailedDuplicateLayer", "Failed Duplicate Layer"),
+    FAIL_DELETE_LAYER(3403, "FailedDeleteLayer", "Failed Delete Layer"),
+    FAIL_NOT_EXIST_LAYER(3404, "FailedNotExistLayer", "Failed Not Exist Layer");
+
+
 
 //    FAIL_INSERT_QD(4004, "FailedInsertQD", "Failed Insert QD"),
 //    FAIL_UPDATE_QD(4005, "FailedUpdateQD", "Failed Update QD"),
