@@ -17,5 +17,5 @@ public class ScreenVo implements Serializable {
 
     private Integer rowsize;
 
-    private Integer columsize;
+    private Integer columnsize;
 }
