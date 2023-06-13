@@ -7,7 +7,7 @@ import java.io.Serializable;
 @Data
 public class DisplayVo implements Serializable {
 
-    private static final long serialVersionUID = 6840738662192251226L;
+    private static final long serialVersionUID = -5477575129266580919L;
 
     private Integer displayId;
 

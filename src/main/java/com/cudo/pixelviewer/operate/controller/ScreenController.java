@@ -23,7 +23,7 @@ public class ScreenController {
 
     final ScreenService screenService;
 
-    @GetMapping("")
+    @GetMapping
     public Map<String, Object> getScreenList(HttpServletRequest request) {
         long startTime = System.currentTimeMillis();
         String apiInfo = "["+ request.getRequestURI() + "] [" + request.getMethod() + "]";

@@ -29,11 +29,23 @@ public enum ResponseCode {
 
 
     // Operate : 3000
-    FAIL_INSERT_SCREEN(3000, "FailedInsertScreen", "Failed Insert Screen"),
-    FAIL_UPDATE_SCREEN(3001, "FailedUpdateScreen", "Failed Update Screen"),
-    FAIL_DUPLICATE_SCREEN(3002, "FailedDuplicateScreen", "Failed Duplicate Screen"),
-    FAIL_DELETE_SCREEN(3003, "FailedDeleteScreen", "Failed Delete Screen"),
-    FAIL_NOT_EXIST_SCREEN(3004, "FailedDeleteScreen", "Failed Delete Screen");
+    // Screen : 3100
+    FAIL_INSERT_SCREEN(3100, "FailedInsertScreen", "Failed Insert Screen"),
+    FAIL_UPDATE_SCREEN(3101, "FailedUpdateScreen", "Failed Update Screen"),
+    FAIL_DUPLICATE_SCREEN(3102, "FailedDuplicateScreen", "Failed Duplicate Screen"),
+    FAIL_DELETE_SCREEN(3103, "FailedDeleteScreen", "Failed Delete Screen"),
+    FAIL_NOT_EXIST_SCREEN(3104, "FailedNotExistScreen", "Failed Not Exist Screen"),
+
+    // Display : 3200
+    FAIL_UPDATE_DISPLAY(3200, "FailedUpdateDisplay", "Failed Update Display"),
+    FAIL_NOT_EXIST_DISPLAY(3201, "FailedNotExistDisplay", "Failed Not Exist Display"),
+
+    // Preset : 3300
+    FAIL_INSERT_PRESET(3000, "FailedInsertPreset", "Failed Insert Preset"),
+    FAIL_UPDATE_PRESET(3001, "FailedUpdatePreset", "Failed Update Preset"),
+    FAIL_DUPLICATE_PRESET(3002, "FailedDuplicatePreset", "Failed Duplicate Preset"),
+    FAIL_DELETE_PRESET(3003, "FailedDeletePreset", "Failed Delete Preset"),
+    FAIL_NOT_EXIST_PRESET(3004, "FailedNotExistPreset", "Failed Not Exist Preset");
 
 //    FAIL_INSERT_QD(4004, "FailedInsertQD", "Failed Insert QD"),
 //    FAIL_UPDATE_QD(4005, "FailedUpdateQD", "Failed Update QD"),

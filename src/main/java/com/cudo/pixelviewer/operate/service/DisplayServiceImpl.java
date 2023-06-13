@@ -84,14 +84,14 @@ public class DisplayServiceImpl implements DisplayService {
                 resultMap.putAll(ParameterUtils.responseOption(ResponseCode.SUCCESS.getCodeName()));
             }
             else{
-                resultMap.put("code", ResponseCode.FAIL_UPDATE_SCREEN.getCode());
-                resultMap.put("message", ResponseCode.FAIL_UPDATE_SCREEN.getMessage());
+                resultMap.put("code", ResponseCode.FAIL_UPDATE_DISPLAY.getCode());
+                resultMap.put("message", ResponseCode.FAIL_UPDATE_DISPLAY.getMessage());
             }
             // TODO : TEST PATTERN LOGIC END
         }
         else{
-            resultMap.put("code", ResponseCode.FAIL_NOT_EXIST_SCREEN.getCode());
-            resultMap.put("message", ResponseCode.FAIL_NOT_EXIST_SCREEN.getMessage());
+            resultMap.put("code", ResponseCode.FAIL_NOT_EXIST_DISPLAY.getCode());
+            resultMap.put("message", ResponseCode.FAIL_NOT_EXIST_DISPLAY.getMessage());
         }
         return resultMap;
     }

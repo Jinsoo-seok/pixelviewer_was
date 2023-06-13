@@ -24,7 +24,7 @@ public class DisplayController {
 
     final DisplayService displayService;
 
-    @GetMapping("")
+    @GetMapping
     public Map<String, Object> getDisplayList(HttpServletRequest request) {
         long startTime = System.currentTimeMillis();
         String apiInfo = "["+ request.getRequestURI() + "] [" + request.getMethod() + "]";
