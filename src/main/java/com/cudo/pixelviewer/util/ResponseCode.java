@@ -52,7 +52,16 @@ public enum ResponseCode {
     FAIL_UPDATE_LAYER(3401, "FailedUpdateLayer", "Failed Update Layer"),
     FAIL_DUPLICATE_LAYER(3402, "FailedDuplicateLayer", "Failed Duplicate Layer"),
     FAIL_DELETE_LAYER(3403, "FailedDeleteLayer", "Failed Delete Layer"),
-    FAIL_NOT_EXIST_LAYER(3404, "FailedNotExistLayer", "Failed Not Exist Layer");
+    FAIL_NOT_EXIST_LAYER(3404, "FailedNotExistLayer", "Failed Not Exist Layer"),
+
+
+    // BO : 4000
+    // Pwrcon : 4100
+    FAIL_INSERT_PWRCON(4100, "FailedInsertPwrcon", "Failed Insert Pwrcon"),
+    FAIL_UPDATE_PWRCON(4101, "FailedUpdatePwrcon", "Failed Update Pwrcon"),
+    FAIL_DUPLICATE_PWRCON(4102, "FailedDuplicatePwrcon", "Failed Duplicate Pwrcon"),
+    FAIL_DELETE_PWRCON(4103, "FailedDeletePwrcon", "Failed Delete Pwrcon"),
+    FAIL_NOT_EXIST_PWRCON(4104, "FailedNotExistPwrcon", "Failed Not Exist Pwrcon");
 
 
 
