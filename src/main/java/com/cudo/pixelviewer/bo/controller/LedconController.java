@@ -1,6 +1,6 @@
 package com.cudo.pixelviewer.bo.controller;
 
-import com.cudo.pixelviewer.bo.service.PwrconService;
+import com.cudo.pixelviewer.bo.service.LedconService;
 import com.cudo.pixelviewer.config.ParamException;
 import com.cudo.pixelviewer.util.ParameterUtils;
 import com.cudo.pixelviewer.util.ResponseCode;
@@ -19,13 +19,13 @@ import static com.cudo.pixelviewer.util.ParameterUtils.parameterValidation;
 @RestController
 @RequiredArgsConstructor
 @CrossOrigin(origins = "*")
-@RequestMapping("/api-manager/pwrcon")
-public class PwrconController {
+@RequestMapping("/api-manager/ledcon")
+public class LedconController {
 
-    final PwrconService pwrconService;
+    final LedconService ledconService;
 
     @GetMapping
-    public Map<String, Object> getPwrconList(HttpServletRequest request) {
+    public Map<String, Object> getLedconList(HttpServletRequest request) {
         long startTime = System.currentTimeMillis();
         String apiInfo = "["+ request.getRequestURI() + "] [" + request.getMethod() + "]";
         log.info("{} [START] [{}]", apiInfo, startTime);
@@ -35,10 +35,10 @@ public class PwrconController {
 
 
         try {
-            responseMap = pwrconService.getPwrconList();
+            responseMap = ledconService.getLedconList();
         }
         catch (Exception exception) {
-            log.error("[Exception][getPwrconList] - {}", exception.getMessage());
+            log.error("[Exception][getLedconList] - {}", exception.getMessage());
             responseMap.put("exceptionMessage", exception.getMessage());
         }
 
@@ -51,7 +51,7 @@ public class PwrconController {
 
     // TODO : 필수값 체크
     @PostMapping
-    public Map<String, Object> postPwrcon(HttpServletRequest request
+    public Map<String, Object> postLedcon(HttpServletRequest request
                                         , @RequestBody Map<String, Object> param) {
         long startTime = System.currentTimeMillis();
         String apiInfo = "["+ request.getRequestURI() + "] [" + request.getMethod() + "]";
@@ -62,10 +62,10 @@ public class PwrconController {
 
 
         try {
-            responseMap = pwrconService.postPwrcon(param);
+            responseMap = ledconService.postLedcon(param);
         }
         catch (Exception exception) {
-            log.error("[Exception][postPwrcon] - {}", exception.getMessage());
+            log.error("[Exception][postLedcon] - {}", exception.getMessage());
             responseMap.put("exceptionMessage", exception.getMessage());
         }
 
@@ -77,7 +77,7 @@ public class PwrconController {
     }
 
     @DeleteMapping
-    public Map<String, Object> deletePwrcon(HttpServletRequest request
+    public Map<String, Object> deleteLedcon(HttpServletRequest request
                                         , @RequestBody Map<String, Object> param) {
         long startTime = System.currentTimeMillis();
         String apiInfo = "["+ request.getRequestURI() + "] [" + request.getMethod() + "]";
@@ -86,21 +86,21 @@ public class PwrconController {
         Map<String, Object> responseMap = new HashMap<>();
         responseMap.putAll(ParameterUtils.responseOption(ResponseCode.FAIL.getCodeName()));
 
-        String[] keyList = {"condeviceId"};
+        String[] keyList = {"ledControllerId"};
 
         try {
             parameterValidation(param, keyList);
-            parameterInt("condeviceId", param.get("condeviceId"), true);
+            parameterInt("ledControllerId", param.get("ledControllerId"), true);
 
-            responseMap = pwrconService.deletePwrcon(param);
+            responseMap = ledconService.deleteLedcon(param);
         }
         catch (ParamException paramException){
-            log.error("[paramException][deletePwrcon] - {}", paramException.getMessage());
+            log.error("[paramException][deleteLedcon] - {}", paramException.getMessage());
             responseMap.put("code", paramException.getCode());
             responseMap.put("message", paramException.getMessage());
         }
         catch (Exception exception) {
-            log.error("[Exception][deletePwrcon] - {}", exception.getMessage());
+            log.error("[Exception][deleteLedcon] - {}", exception.getMessage());
             responseMap.put("exceptionMessage", exception.getMessage());
         }
 
@@ -112,7 +112,7 @@ public class PwrconController {
     }
 
 //    @PatchMapping("/name")
-//    public Map<String, Object> patchPwrconName(HttpServletRequest request
+//    public Map<String, Object> patchLedconName(HttpServletRequest request
 //                                        , @RequestBody Map<String, Object> param) {
 //        long startTime = System.currentTimeMillis();
 //        String apiInfo = "["+ request.getRequestURI() + "] [" + request.getMethod() + "]";
@@ -121,22 +121,22 @@ public class PwrconController {
 //        Map<String, Object> responseMap = new HashMap<>();
 //        responseMap.putAll(ParameterUtils.responseOption(ResponseCode.FAIL.getCodeName()));
 //
-//        String[] keyList = {"pwrconId", "pwrconNm"};
+//        String[] keyList = {"ledconId", "ledconNm"};
 //
 //        try {
 //            parameterValidation(param, keyList);
-//            parameterInt("pwrconId", param.get("pwrconId"), true);
-//            parameterString("pwrconNm", param.get("pwrconNm"), true, 0, null);
+//            parameterInt("ledconId", param.get("ledconId"), true);
+//            parameterString("ledconNm", param.get("ledconNm"), true, 0, null);
 //
-//            responseMap = pwrconService.patchPwrconName(param);
+//            responseMap = ledconService.patchLedconName(param);
 //        }
 //        catch (ParamException paramException){
-//            log.error("[paramException][patchPwrconName] - {}", paramException.getMessage());
+//            log.error("[paramException][patchLedconName] - {}", paramException.getMessage());
 //            responseMap.put("code", paramException.getCode());
 //            responseMap.put("message", paramException.getMessage());
 //        }
 //        catch (Exception exception) {
-//            log.error("[Exception][patchPwrconName] - {}", exception.getMessage());
+//            log.error("[Exception][patchLedconName] - {}", exception.getMessage());
 //            responseMap.put("exceptionMessage", exception.getMessage());
 //        }
 //

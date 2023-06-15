@@ -61,7 +61,14 @@ public enum ResponseCode {
     FAIL_UPDATE_PWRCON(4101, "FailedUpdatePwrcon", "Failed Update Pwrcon"),
     FAIL_DUPLICATE_PWRCON(4102, "FailedDuplicatePwrcon", "Failed Duplicate Pwrcon"),
     FAIL_DELETE_PWRCON(4103, "FailedDeletePwrcon", "Failed Delete Pwrcon"),
-    FAIL_NOT_EXIST_PWRCON(4104, "FailedNotExistPwrcon", "Failed Not Exist Pwrcon");
+    FAIL_NOT_EXIST_PWRCON(4104, "FailedNotExistPwrcon", "Failed Not Exist Pwrcon"),
+
+    // LedCon : 4200
+    FAIL_INSERT_LEDCON(4200, "FailedInsertLedcon", "Failed Insert Ledcon"),
+    FAIL_UPDATE_LEDCON(4201, "FailedUpdateLedcon", "Failed Update Ledcon"),
+    FAIL_DUPLICATE_LEDCON(4202, "FailedDuplicateLedcon", "Failed Duplicate Ledcon"),
+    FAIL_DELETE_LEDCON(4203, "FailedDeleteLedcon", "Failed Delete Ledcon"),
+    FAIL_NOT_EXIST_LEDCON(4204, "FailedNotExistLedcon", "Failed Not Exist Ledcon");
 
 
 
