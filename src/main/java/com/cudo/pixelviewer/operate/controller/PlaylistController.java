@@ -221,4 +221,206 @@ public class PlaylistController {
 //
 //        return responseMap;
 //    }
+
+/////////////////////////////////////////////////////////////////////////////////contents
+    @GetMapping("/contents")
+    public Map<String, Object> getPlaylistContentsList(HttpServletRequest request) {
+        long startTime = System.currentTimeMillis();
+        String apiInfo = "["+ request.getRequestURI() + "] [" + request.getMethod() + "]";
+        log.info("{} [START] [{}]", apiInfo, startTime);
+
+        Map<String, Object> responseMap = new HashMap<>();
+        responseMap.putAll(ParameterUtils.responseOption(ResponseCode.FAIL.getCodeName()));
+
+
+        try {
+            responseMap = playlistService.getPlaylistContentsList();
+        }
+        catch (Exception exception) {
+            log.error("[Exception][getPlaylistContentsList] - {}", exception.getMessage());
+            responseMap.put("exceptionMessage", exception.getMessage());
+        }
+
+        long endTime = System.currentTimeMillis();
+        long procTime = endTime-startTime;
+        log.info("{} [END] [{}] - {}", apiInfo, procTime, responseMap.get("code"));
+
+        return responseMap;
+    }
+
+    @GetMapping("/contents/{Id}")
+    public Map<String, Object> getPlaylistContents(HttpServletRequest request
+            , @PathVariable String Id) {
+        long startTime = System.currentTimeMillis();
+        String apiInfo = "["+ request.getRequestURI() + "] [" + request.getMethod() + "]";
+        log.info("{} [START] [{}] - {}", apiInfo, startTime, Id);
+
+        Map<String, Object> responseMap = new HashMap<>();
+        responseMap.putAll(ParameterUtils.responseOption(ResponseCode.FAIL.getCodeName()));
+
+
+        try {
+            responseMap = playlistService.getPlaylistContents(Id);
+        }
+        catch (Exception exception) {
+            log.error("[Exception][getPlaylistContents] - {}", exception.getMessage());
+            responseMap.put("exceptionMessage", exception.getMessage());
+        }
+
+        long endTime = System.currentTimeMillis();
+        long procTime = endTime-startTime;
+        log.info("{} [END] [{}] - {}", apiInfo, procTime, responseMap.get("code"));
+
+        return responseMap;
+    }
+
+
+    @PostMapping("/contents")
+    public Map<String, Object> postPlaylistContents(HttpServletRequest request
+            , @RequestBody Map<String, Object> param) {
+        long startTime = System.currentTimeMillis();
+        String apiInfo = "["+ request.getRequestURI() + "] [" + request.getMethod() + "]";
+        log.info("{} [START] [{}] - {}", apiInfo, startTime, param);
+
+        Map<String, Object> responseMap = new HashMap<>();
+        responseMap.putAll(ParameterUtils.responseOption(ResponseCode.FAIL.getCodeName()));
+
+        String[] keyList = {"playlistId", "ordNo", "type", "ctsNm", "ctsPath", "playtime", "weatherFl", "airInfoFl"};
+
+        try {
+            parameterValidation(param, keyList);
+            parameterInt("playlistId", param.get("playlistId"), true);
+            parameterInt("ordNo", param.get("ordNo"), true);
+            parameterInt("type", param.get("type"), true);
+            parameterString("ctsNm", param.get("ctsNm"), true, 0, null);
+            parameterString("ctsPath", param.get("ctsPath"), true, 0, null);
+            parameterString("playtime", param.get("playtime"), true, 0, null);
+            parameterInt("weatherFl", param.get("weatherFl"), true);
+            parameterInt("airInfoFl", param.get("airInfoFl"), true);
+
+            responseMap = playlistService.postPlaylistContents(param);
+        }
+        catch (ParamException paramException){
+            log.error("[paramException][postPlaylistContents] - {}", paramException.getMessage());
+            responseMap.put("code", paramException.getCode());
+            responseMap.put("message", paramException.getMessage());
+        }
+        catch (Exception exception) {
+            log.error("[Exception][postPlaylistContents] - {}", exception.getMessage());
+            responseMap.put("exceptionMessage", exception.getMessage());
+        }
+
+        long endTime = System.currentTimeMillis();
+        long procTime = endTime-startTime;
+        log.info("{} [END] [{}] - {}", apiInfo, procTime, responseMap.get("code"));
+
+        return responseMap;
+    }
+
+    @DeleteMapping("/contents")
+    public Map<String, Object> deletePlaylistContents(HttpServletRequest request
+                                        , @RequestBody Map<String, Object> param) {
+        long startTime = System.currentTimeMillis();
+        String apiInfo = "["+ request.getRequestURI() + "] [" + request.getMethod() + "]";
+        log.info("{} [START] [{}] - {}", apiInfo, startTime, param);
+
+        Map<String, Object> responseMap = new HashMap<>();
+        responseMap.putAll(ParameterUtils.responseOption(ResponseCode.FAIL.getCodeName()));
+
+        String[] keyList = {"itemId"};
+
+        try {
+            parameterValidation(param, keyList);
+            parameterInt("itemId", param.get("itemId"), true);
+
+            responseMap = playlistService.deletePlaylistContents(param);
+        }
+        catch (ParamException paramException){
+            log.error("[paramException][deletePlaylistContents] - {}", paramException.getMessage());
+            responseMap.put("code", paramException.getCode());
+            responseMap.put("message", paramException.getMessage());
+        }
+        catch (Exception exception) {
+            log.error("[Exception][deletePlaylistContents] - {}", exception.getMessage());
+            responseMap.put("exceptionMessage", exception.getMessage());
+        }
+
+        long endTime = System.currentTimeMillis();
+        long procTime = endTime-startTime;
+        log.info("{} [END] [{}] - {}", apiInfo, procTime, responseMap.get("code"));
+
+        return responseMap;
+    }
+
+    @PatchMapping("/contents/name")
+    public Map<String, Object> patchContentsName(HttpServletRequest request
+                                        , @RequestBody Map<String, Object> param) {
+        long startTime = System.currentTimeMillis();
+        String apiInfo = "["+ request.getRequestURI() + "] [" + request.getMethod() + "]";
+        log.info("{} [START] [{}] - {}", apiInfo, startTime, param);
+
+        Map<String, Object> responseMap = new HashMap<>();
+        responseMap.putAll(ParameterUtils.responseOption(ResponseCode.FAIL.getCodeName()));
+
+        String[] keyList = {"itemId", "ctsNm"};
+
+        try {
+            parameterValidation(param, keyList);
+            parameterInt("itemId", param.get("itemId"), true);
+            parameterString("ctsNm", param.get("ctsNm"), true, 0, null);
+
+            responseMap = playlistService.patchContentsName(param);
+        }
+        catch (ParamException paramException){
+            log.error("[paramException][patchContentsName] - {}", paramException.getMessage());
+            responseMap.put("code", paramException.getCode());
+            responseMap.put("message", paramException.getMessage());
+        }
+        catch (Exception exception) {
+            log.error("[Exception][patchContentsName] - {}", exception.getMessage());
+            responseMap.put("exceptionMessage", exception.getMessage());
+        }
+
+        long endTime = System.currentTimeMillis();
+        long procTime = endTime-startTime;
+        log.info("{} [END] [{}] - {}", apiInfo, procTime, responseMap.get("code"));
+
+        return responseMap;
+    }
+    @PatchMapping("/contents/playtime")
+    public Map<String, Object> patchContentsPlaytime(HttpServletRequest request
+            , @RequestBody Map<String, Object> param) {
+        long startTime = System.currentTimeMillis();
+        String apiInfo = "["+ request.getRequestURI() + "] [" + request.getMethod() + "]";
+        log.info("{} [START] [{}] - {}", apiInfo, startTime, param);
+
+        Map<String, Object> responseMap = new HashMap<>();
+        responseMap.putAll(ParameterUtils.responseOption(ResponseCode.FAIL.getCodeName()));
+
+        String[] keyList = {"itemId", "playtime"};
+
+        try {
+            parameterValidation(param, keyList);
+            parameterInt("itemId", param.get("itemId"), true);
+            parameterString("playtime", param.get("playtime"), true, 0, null);
+
+            responseMap = playlistService.patchContentsPlaytime(param);
+        }
+        catch (ParamException paramException){
+            log.error("[paramException][patchContentsPlaytime] - {}", paramException.getMessage());
+            responseMap.put("code", paramException.getCode());
+            responseMap.put("message", paramException.getMessage());
+        }
+        catch (Exception exception) {
+            log.error("[Exception][patchContentsPlaytime] - {}", exception.getMessage());
+            responseMap.put("exceptionMessage", exception.getMessage());
+        }
+
+        long endTime = System.currentTimeMillis();
+        long procTime = endTime-startTime;
+        log.info("{} [END] [{}] - {}", apiInfo, procTime, responseMap.get("code"));
+
+        return responseMap;
+    }
+
 }

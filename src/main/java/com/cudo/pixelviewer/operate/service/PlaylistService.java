@@ -10,4 +10,18 @@ public interface PlaylistService {
 
     Map<String, Object> postPlaylist(Map<String, Object> param);
 
+
+    // Contents
+    Map<String, Object> getPlaylistContentsList();
+
+    Map<String, Object> getPlaylistContents(String Id);
+
+    Map<String, Object> postPlaylistContents(Map<String, Object> param);
+
+    Map<String, Object> deletePlaylistContents(Map<String, Object> param);
+
+    Map<String, Object> patchContentsName(Map<String, Object> param);
+
+    Map<String, Object> patchContentsPlaytime(Map<String, Object> param);
+
 }

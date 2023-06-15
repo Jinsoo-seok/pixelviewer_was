@@ -47,12 +47,25 @@ public enum ResponseCode {
     FAIL_DELETE_PRESET(3303, "FailedDeletePreset", "Failed Delete Preset"),
     FAIL_NOT_EXIST_PRESET(3304, "FailedNotExistPreset", "Failed Not Exist Preset"),
 
-    // Preset : 3400
+    // Layer : 3400
     FAIL_INSERT_LAYER(3400, "FailedInsertLayer", "Failed Insert Layer"),
     FAIL_UPDATE_LAYER(3401, "FailedUpdateLayer", "Failed Update Layer"),
     FAIL_DUPLICATE_LAYER(3402, "FailedDuplicateLayer", "Failed Duplicate Layer"),
     FAIL_DELETE_LAYER(3403, "FailedDeleteLayer", "Failed Delete Layer"),
     FAIL_NOT_EXIST_LAYER(3404, "FailedNotExistLayer", "Failed Not Exist Layer"),
+
+    // Playlist : 3500
+    FAIL_INSERT_PLAYLIST(3500, "FailedInsertPlaylist", "Failed Insert Playlist"),
+    FAIL_UPDATE_PLAYLIST(3501, "FailedUpdatePlaylist", "Failed Update Playlist"),
+    FAIL_DUPLICATE_PLAYLIST(3502, "FailedDuplicatePlaylist", "Failed Duplicate Playlist"),
+    FAIL_DELETE_PLAYLIST(3503, "FailedDeletePlaylist", "Failed Delete Playlist"),
+    FAIL_NOT_EXIST_PLAYLIST(3504, "FailedNotExistPlaylist", "Failed Not Exist Playlist"),
+
+    FAIL_INSERT_PLAYLIST_CONTENTS(3510, "FailedInsertPlaylistContents", "Failed Insert PlaylistContents"),
+    FAIL_UPDATE_PLAYLIST_CONTENTS(3511, "FailedUpdatePlaylistContents", "Failed Update PlaylistContents"),
+    FAIL_DUPLICATE_PLAYLIST_CONTENTS(3512, "FailedDuplicatePlaylistContents", "Failed Duplicate PlaylistContents"),
+    FAIL_DELETE_PLAYLIST_CONTENTS(3513, "FailedDeletePlaylistContents", "Failed Delete PlaylistContents"),
+    FAIL_NOT_EXIST_PLAYLIST_CONTENTS(3514, "FailedNotExistPlaylistContents", "Failed Not Exist PlaylistContents"),
 
 
     // BO : 4000

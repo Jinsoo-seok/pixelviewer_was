@@ -66,4 +66,68 @@
         WHERE Playlists.playlist_id = #{playlistId}
     </update>
 
+
+    <select id="getPlaylistContentsList" resultType="com.cudo.pixelviewer.vo.PlaylistContentsVo">
+        SELECT *
+        FROM Playlist_Items
+    </select>
+
+    <select id="getPlaylistContents" resultType="com.cudo.pixelviewer.vo.PlaylistContentsVo">
+        SELECT *
+        FROM Playlist_Items
+        WHERE item_id = #{itemId}
+    </select>
+
+    <select id="postPlaylistContentsValid" resultType="int">
+        SELECT count(item_id)
+        FROM Playlist_Items
+    </select>
+    <insert id="postPlaylistContents" parameterType="Map" useGeneratedKeys="true" keyColumn="item_id"
+            keyProperty="itemId">
+        INSERT INTO Playlist_Items
+        (
+            ord_no, playlist_id, type
+            , cts_nm, cts_path, playtime
+            , weather_fl, air_info_fl
+        )
+        VALUES
+        (
+            #{ordNo}, #{playlistId}, #{type}
+            , #{ctsNm}, #{ctsPath}, #{playtime}
+            , #{weatherFl}, #{airInfoFl}
+        )
+    </insert>
+
+    <select id="deletePlaylistContentsValid" resultType="int">
+        SELECT count(item_id)
+        FROM Playlist_Items
+        WHERE item_id = #{itemId}
+    </select>
+    <update id="deletePlaylistContents">
+        DELETE I
+        FROM Playlist_Items AS I
+        WHERE item_id = #{itemId}
+    </update>
+
+    <select id="patchContentsNameValid" resultType="int">
+        SELECT count(item_id)
+        FROM Playlist_Items
+        WHERE item_id = #{itemId}
+    </select>
+    <update id="patchContentsName">
+        UPDATE Playlist_Items
+        SET cts_nm = #{ctsNm}
+        WHERE item_id = #{itemId}
+    </update>
+
+    <select id="patchContentsPlaytimeValid" resultType="int">
+        SELECT count(item_id)
+        FROM Playlist_Items
+        WHERE item_id = #{itemId}
+    </select>
+    <update id="patchContentsPlaytime">
+        UPDATE Playlist_Items
+        SET playtime = #{playtime}
+        WHERE item_id = #{itemId}
+    </update>
 </mapper>

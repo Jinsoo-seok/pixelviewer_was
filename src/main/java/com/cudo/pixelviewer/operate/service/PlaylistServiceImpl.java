@@ -3,6 +3,7 @@ package com.cudo.pixelviewer.operate.service;
 import com.cudo.pixelviewer.operate.mapper.PlaylistMapper;
 import com.cudo.pixelviewer.util.ParameterUtils;
 import com.cudo.pixelviewer.util.ResponseCode;
+import com.cudo.pixelviewer.vo.PlaylistContentsVo;
 import com.cudo.pixelviewer.vo.PlaylistVo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -68,13 +69,13 @@ public class PlaylistServiceImpl implements PlaylistService {
                 resultMap.put("data", dataMap);
             }
             else{
-                resultMap.put("code", ResponseCode.FAIL_INSERT_SCREEN.getCode());
-                resultMap.put("message", ResponseCode.FAIL_INSERT_SCREEN.getMessage());
+                resultMap.put("code", ResponseCode.FAIL_INSERT_PLAYLIST.getCode());
+                resultMap.put("message", ResponseCode.FAIL_INSERT_PLAYLIST.getMessage());
             }
         }
         else{
-            resultMap.put("code", ResponseCode.FAIL_DUPLICATE_SCREEN.getCode());
-            resultMap.put("message", ResponseCode.FAIL_DUPLICATE_SCREEN.getMessage());
+            resultMap.put("code", ResponseCode.FAIL_DUPLICATE_PLAYLIST.getCode());
+            resultMap.put("message", ResponseCode.FAIL_DUPLICATE_PLAYLIST.getMessage());
         }
         return resultMap;
     }
@@ -93,13 +94,13 @@ public class PlaylistServiceImpl implements PlaylistService {
 //                resultMap.putAll(ParameterUtils.responseOption(ResponseCode.SUCCESS.getCodeName()));
 //            }
 //            else{
-//                resultMap.put("code", ResponseCode.FAIL_DELETE_SCREEN.getCode());
-//                resultMap.put("message", ResponseCode.FAIL_DELETE_SCREEN.getMessage());
+//                resultMap.put("code", ResponseCode.FAIL_DELETE_PLAYLIST.getCode());
+//                resultMap.put("message", ResponseCode.FAIL_DELETE_PLAYLIST.getMessage());
 //            }
 //        }
 //        else{
-//            resultMap.put("code", ResponseCode.FAIL_NOT_EXIST_SCREEN.getCode());
-//            resultMap.put("message", ResponseCode.FAIL_NOT_EXIST_SCREEN.getMessage());
+//            resultMap.put("code", ResponseCode.FAIL_NOT_EXIST_PLAYLIST.getCode());
+//            resultMap.put("message", ResponseCode.FAIL_NOT_EXIST_PLAYLIST.getMessage());
 //        }
 //        return resultMap;
 //    }
@@ -118,13 +119,13 @@ public class PlaylistServiceImpl implements PlaylistService {
 //                resultMap.putAll(ParameterUtils.responseOption(ResponseCode.SUCCESS.getCodeName()));
 //            }
 //            else{
-//                resultMap.put("code", ResponseCode.FAIL_UPDATE_SCREEN.getCode());
-//                resultMap.put("message", ResponseCode.FAIL_UPDATE_SCREEN.getMessage());
+//                resultMap.put("code", ResponseCode.FAIL_UPDATE_PLAYLIST.getCode());
+//                resultMap.put("message", ResponseCode.FAIL_UPDATE_PLAYLIST.getMessage());
 //            }
 //        }
 //        else{
-//            resultMap.put("code", ResponseCode.FAIL_NOT_EXIST_SCREEN.getCode());
-//            resultMap.put("message", ResponseCode.FAIL_NOT_EXIST_SCREEN.getMessage());
+//            resultMap.put("code", ResponseCode.FAIL_NOT_EXIST_PLAYLIST.getCode());
+//            resultMap.put("message", ResponseCode.FAIL_NOT_EXIST_PLAYLIST.getMessage());
 //        }
 //        return resultMap;
 //    }
@@ -143,14 +144,151 @@ public class PlaylistServiceImpl implements PlaylistService {
 //                resultMap.putAll(ParameterUtils.responseOption(ResponseCode.SUCCESS.getCodeName()));
 //            }
 //            else{
-//                resultMap.put("code", ResponseCode.FAIL_UPDATE_SCREEN.getCode());
-//                resultMap.put("message", ResponseCode.FAIL_UPDATE_SCREEN.getMessage());
+//                resultMap.put("code", ResponseCode.FAIL_UPDATE_PLAYLIST.getCode());
+//                resultMap.put("message", ResponseCode.FAIL_UPDATE_PLAYLIST.getMessage());
 //            }
 //        }
 //        else{
-//            resultMap.put("code", ResponseCode.FAIL_NOT_EXIST_SCREEN.getCode());
-//            resultMap.put("message", ResponseCode.FAIL_NOT_EXIST_SCREEN.getMessage());
+//            resultMap.put("code", ResponseCode.FAIL_NOT_EXIST_PLAYLIST.getCode());
+//            resultMap.put("message", ResponseCode.FAIL_NOT_EXIST_PLAYLIST.getMessage());
 //        }
 //        return resultMap;
 //    }
+
+    @Override
+    public Map<String, Object> getPlaylistContentsList() {
+        Map<String, Object> resultMap = new HashMap<>();
+
+        List<PlaylistContentsVo> playlistVoList = playlistMapper.getPlaylistContentsList();
+
+        if(playlistVoList.size() > 0){
+            resultMap.put("data", playlistVoList);
+            resultMap.putAll(ParameterUtils.responseOption(ResponseCode.SUCCESS.getCodeName()));
+        }
+        else{
+            resultMap.putAll(ParameterUtils.responseOption(ResponseCode.NO_CONTENT.getCodeName()));
+        }
+        return resultMap;
+    }
+
+    @Override
+    public Map<String, Object> getPlaylistContents(String Id) {
+        Map<String, Object> resultMap = new HashMap<>();
+
+        PlaylistContentsVo playlistVo = playlistMapper.getPlaylistContents(Id);
+
+        if(playlistVo != null){
+            resultMap.put("data", playlistVo);
+            resultMap.putAll(ParameterUtils.responseOption(ResponseCode.SUCCESS.getCodeName()));
+        }
+        else{
+            resultMap.putAll(ParameterUtils.responseOption(ResponseCode.NO_CONTENT.getCodeName()));
+        }
+        return resultMap;
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public Map<String, Object> postPlaylistContents(Map<String, Object> param) {
+        Map<String, Object> resultMap = new HashMap<>();
+        Map<String, Object> dataMap = new HashMap<>();
+
+//        int playlistCheck = playlistMapper.postPlaylistContentsValid(param);
+        int playlistCheck = 0;
+
+        if(playlistCheck == 0){ // Not Exist : 0
+            int postPlaylistContentsResult = playlistMapper.postPlaylistContents(param);
+
+            if(postPlaylistContentsResult == 1){ // Success : 1
+                dataMap.put("itemId", param.get("itemId"));
+                resultMap.putAll(ParameterUtils.responseOption(ResponseCode.SUCCESS.getCodeName()));
+                resultMap.put("data", dataMap);
+            }
+            else{
+                resultMap.put("code", ResponseCode.FAIL_INSERT_PLAYLIST_CONTENTS.getCode());
+                resultMap.put("message", ResponseCode.FAIL_INSERT_PLAYLIST_CONTENTS.getMessage());
+            }
+        }
+        else{
+            resultMap.put("code", ResponseCode.FAIL_DUPLICATE_PLAYLIST_CONTENTS.getCode());
+            resultMap.put("message", ResponseCode.FAIL_DUPLICATE_PLAYLIST_CONTENTS.getMessage());
+        }
+        return resultMap;
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public Map<String, Object> deletePlaylistContents(Map<String, Object> param) {
+        Map<String, Object> resultMap = new HashMap<>();
+
+        int playlistCheck = playlistMapper.deletePlaylistContentsValid(param);
+
+        if(playlistCheck == 1){  // Exist : 1
+            int deletePlaylistContentsResult = playlistMapper.deletePlaylistContents(param);
+
+            if(deletePlaylistContentsResult == 1){ // Success : 1
+                resultMap.putAll(ParameterUtils.responseOption(ResponseCode.SUCCESS.getCodeName()));
+            }
+            else{
+                resultMap.put("code", ResponseCode.FAIL_DELETE_PLAYLIST_CONTENTS.getCode());
+                resultMap.put("message", ResponseCode.FAIL_DELETE_PLAYLIST_CONTENTS.getMessage());
+            }
+        }
+        else{
+            resultMap.put("code", ResponseCode.FAIL_NOT_EXIST_PLAYLIST_CONTENTS.getCode());
+            resultMap.put("message", ResponseCode.FAIL_NOT_EXIST_PLAYLIST_CONTENTS.getMessage());
+        }
+        return resultMap;
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public Map<String, Object> patchContentsName(Map<String, Object> param) {
+        Map<String, Object> resultMap = new HashMap<>();
+
+        int playlistCheck = playlistMapper.patchContentsNameValid(param);
+
+        if(playlistCheck == 1){  // Exist : 1
+            int patchPlaylistContentsNameResult = playlistMapper.patchContentsName(param);
+
+            if(patchPlaylistContentsNameResult == 1){ // Success : 1
+                resultMap.putAll(ParameterUtils.responseOption(ResponseCode.SUCCESS.getCodeName()));
+            }
+            else{
+                resultMap.put("code", ResponseCode.FAIL_UPDATE_PLAYLIST_CONTENTS.getCode());
+                resultMap.put("message", ResponseCode.FAIL_UPDATE_PLAYLIST_CONTENTS.getMessage());
+            }
+        }
+        else{
+            resultMap.put("code", ResponseCode.FAIL_NOT_EXIST_PLAYLIST_CONTENTS.getCode());
+            resultMap.put("message", ResponseCode.FAIL_NOT_EXIST_PLAYLIST_CONTENTS.getMessage());
+        }
+        return resultMap;
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public Map<String, Object> patchContentsPlaytime(Map<String, Object> param) {
+        Map<String, Object> resultMap = new HashMap<>();
+
+        int playlistCheck = playlistMapper.patchContentsPlaytimeValid(param);
+
+        if(playlistCheck == 1){  // Exist : 1
+            int patchPlaylistContentsNameResult = playlistMapper.patchContentsPlaytime(param);
+
+            if(patchPlaylistContentsNameResult == 1){ // Success : 1
+                resultMap.putAll(ParameterUtils.responseOption(ResponseCode.SUCCESS.getCodeName()));
+            }
+            else{
+                resultMap.put("code", ResponseCode.FAIL_UPDATE_PLAYLIST_CONTENTS.getCode());
+                resultMap.put("message", ResponseCode.FAIL_UPDATE_PLAYLIST_CONTENTS.getMessage());
+            }
+        }
+        else{
+            resultMap.put("code", ResponseCode.FAIL_NOT_EXIST_PLAYLIST_CONTENTS.getCode());
+            resultMap.put("message", ResponseCode.FAIL_NOT_EXIST_PLAYLIST_CONTENTS.getMessage());
+        }
+        return resultMap;
+    }
+
 }

@@ -1,5 +1,6 @@
 package com.cudo.pixelviewer.operate.mapper;
 
+import com.cudo.pixelviewer.vo.PlaylistContentsVo;
 import com.cudo.pixelviewer.vo.PlaylistVo;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -24,5 +25,21 @@ public interface PlaylistMapper {
 
     int putPlaylistValid(Map<String, Object> param);
     int putPlaylist(Map<String, Object> param);
+
+    List<PlaylistContentsVo> getPlaylistContentsList();
+
+    PlaylistContentsVo getPlaylistContents(String playlistId);
+
+    int postPlaylistContentsValid(Map<String, Object> param);
+    int postPlaylistContents(Map<String, Object> param);
+
+    int deletePlaylistContentsValid(Map<String, Object> param);
+    int deletePlaylistContents(Map<String, Object> param);
+
+    int patchContentsNameValid(Map<String, Object> param);
+    int patchContentsName(Map<String, Object> param);
+
+    int patchContentsPlaytimeValid(Map<String, Object> param);
+    int patchContentsPlaytime(Map<String, Object> param);
 
 }
