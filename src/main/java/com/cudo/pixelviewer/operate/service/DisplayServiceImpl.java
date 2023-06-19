@@ -52,10 +52,10 @@ public class DisplayServiceImpl implements DisplayService {
     }
 
     @Override
-    public Map<String, Object> getDisplayPortlist(String displayId) {
+    public Map<String, Object> getDisplayPortlist() {
         Map<String, Object> resultMap = new HashMap<>();
 
-        List<Map<String, Object>> displayPortlist = displayMapper.getDisplayPortlist(displayId);
+        List<Map<String, Object>> displayPortlist = displayMapper.getDisplayPortlist();
 
         if(displayPortlist.size() > 0){
             resultMap.put("data", displayPortlist);

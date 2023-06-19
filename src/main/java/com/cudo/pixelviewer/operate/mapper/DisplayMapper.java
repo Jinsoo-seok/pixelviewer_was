@@ -13,7 +13,7 @@ public interface DisplayMapper {
 
     DisplayVo getDisplay(String displayId);
 
-    List<Map<String, Object>> getDisplayPortlist(String displayId);
+    List<Map<String, Object>> getDisplayPortlist();
 
     int patchDisplayTestpatternValid(Map<String, Object> param);
     int patchDisplayTestpattern(Map<String, Object> param);

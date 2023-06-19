@@ -75,11 +75,9 @@ public class DisplayController {
         return responseMap;
     }
 
-    // TODO : 실제로 필요할지? id 조회일때 join해서 같이 주면 되는거 아닌가싶어서
+    // TODO : 관리자에서 등록한 디스플레이 정보를 그대로 내려주는 api >> 관리자에서 등록한 디스플레이 정보를 가진 테이블이 있어야함(아직 없음)
     @GetMapping("/portlist")
-    public Map<String, Object> getDisplayPortlist(HttpServletRequest request
-//                                                , @PathVariable String displayId) {
-    ){
+    public Map<String, Object> getDisplayPortlist(HttpServletRequest request){
         long startTime = System.currentTimeMillis();
         String apiInfo = "["+ request.getRequestURI() + "] [" + request.getMethod() + "]";
         log.info("{} [START] [{}]", apiInfo, startTime);
@@ -87,10 +85,9 @@ public class DisplayController {
         Map<String, Object> responseMap = new HashMap<>();
         responseMap.putAll(ParameterUtils.responseOption(ResponseCode.FAIL.getCodeName()));
 
-        String displayId = "1";
 
         try {
-            responseMap = displayService.getDisplayPortlist(displayId);
+            responseMap = displayService.getDisplayPortlist();
         }
         catch (Exception exception) {
             log.error("[Exception][getDisplayPortlist] - {}", exception.getMessage());
@@ -105,6 +102,8 @@ public class DisplayController {
     }
 
 
+    // TODO : 스크린 아이디 받아서 하위 디스플레이에 각각 색상 정보 넣어서 led컨트롤러에 보내줘야함
+    // TODO : 각각의 디스플레이 테이블에 테스트패턴표시 y/n 수정 필요
     @PatchMapping("/testpattern")
     public Map<String, Object> patchDisplayTestpattern(HttpServletRequest request
                                         , @RequestBody Map<String, Object> param) {
@@ -115,12 +114,11 @@ public class DisplayController {
         Map<String, Object> responseMap = new HashMap<>();
         responseMap.putAll(ParameterUtils.responseOption(ResponseCode.FAIL.getCodeName()));
 
-        String[] keyList = {"displayId"};
+        String[] keyList = {"screenId"};
 
         try {
             parameterValidation(param, keyList);
-            parameterInt("displayId", param.get("displayId"), true);
-//            parameterString("screenNm", param.get("screenNm"), true, 0, null);
+            parameterInt("screenId", param.get("screenId"), true);
 
             responseMap = displayService.patchDisplayTestpattern(param);
         }

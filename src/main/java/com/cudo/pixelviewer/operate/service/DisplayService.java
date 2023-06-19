@@ -8,7 +8,7 @@ public interface DisplayService {
 
     Map<String, Object> getDisplay(String screenId);
 
-    Map<String, Object> getDisplayPortlist(String screenId);
+    Map<String, Object> getDisplayPortlist();
 
     Map<String, Object> patchDisplayTestpattern(Map<String, Object> param);
 
