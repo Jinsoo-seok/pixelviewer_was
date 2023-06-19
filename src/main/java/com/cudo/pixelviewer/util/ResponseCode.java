@@ -81,6 +81,12 @@ public enum ResponseCode {
     FAIL_DUPLICATE_EXTERNAL_INFO(3605, "FailedDuplicateExternalInfo", "Failed Duplicate ExternalInfo"),
     FAIL_UNSUPPORTED_TYPE_EXTERNAL_INFO(3606, "FailedUnsupportedTypeExternalInfo", "Failed Unsupported Type ExternalInfo"),
 
+    // Subtitle : 3700
+    FAIL_INSERT_SUBTITLE(3700, "FailedInsertSubtitle", "Failed Insert Subtitle"),
+    FAIL_UPDATE_SUBTITLE(3701, "FailedUpdateSubtitle", "Failed Update Subtitle"),
+    FAIL_DUPLICATE_SUBTITLE(3702, "FailedDuplicateSubtitle", "Failed Duplicate Subtitle"),
+    FAIL_NOT_EXIST_SUBTITLE(3703, "FailedNotExistSubtitle", "Failed Not Exist Subtitle"),
+    FAIL_UNSUPPORTED_TYPE_SUBTITLE(3704, "FailedUnsupportedTypeSubtitle", "Failed Unsupported Type Subtitle"),
 
     // BO : 4000
     // Pwrcon : 4100
