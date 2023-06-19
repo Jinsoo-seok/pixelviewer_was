@@ -17,8 +17,7 @@ public interface PwrconMapper {
     int deletePwrconValid(Map<String, Object> param);
     int deletePwrcon(Map<String, Object> param);
 
-//    int patchPwrconNameValid(Map<String, Object> param);
-//    int patchPwrconName(Map<String, Object> param);
-
+    int putPwrconValid(Map<String, Object> param);
+    int putPwrcon(Map<String, Object> param);
 
 }

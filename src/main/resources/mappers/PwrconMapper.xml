@@ -46,15 +46,31 @@
         WHERE S.condevice_id = #{condeviceId}
     </update>
 
-    <select id="patchPwrconNameValid" resultType="int">
+    <select id="putPwrconValid" resultType="int">
         SELECT COUNT(condevice_id)
         FROM Device_Controls
-        WHERE Device_Controls.condevice_id = #{condeviceId}
+        WHERE condevice_id = #{condeviceId}
     </select>
-    <update id="patchPwrconName">
-        UPDATE Device_Controls
-        SET model_nm = #{modelNm}
-        WHERE Device_Controls.condevice_id = #{condeviceId}
+    <update id="putPwrcon">
+        UPDATE Device_Controls AS D
+        SET
+            ip = #{ip},
+            port = #{port},
+            model_nm = #{modelNm},
+            serial_no = #{serialNo},
+            mpcmu_cnt = #{mpcmuCnt},
+            dpcmu_cnt = #{dpcmuCnt},
+            D.state = #{state},
+            spec_1 = #{spec1},
+            spec_2 = #{spec2},
+            spec_3 = #{spec3},
+            chg_dt = NOW(),
+            update_dt = NOW(),
+            led_pwr = #{ledPwr},
+            temp = #{temp},
+            humi = #{humi},
+            led_key = #{ledKey}
+        WHERE D.condevice_id = #{condeviceId}
     </update>
 
 </mapper>

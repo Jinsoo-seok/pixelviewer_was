@@ -10,6 +10,6 @@ public interface PwrconService {
 
     Map<String, Object> deletePwrcon(Map<String, Object> param);
 
-//    Map<String, Object> patchPwrconName(Map<String, Object> param);
+    Map<String, Object> putPwrcon(Map<String, Object> param);
 
 }

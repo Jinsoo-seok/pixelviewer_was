@@ -12,8 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.cudo.pixelviewer.util.ParameterUtils.parameterInt;
-import static com.cudo.pixelviewer.util.ParameterUtils.parameterValidation;
+import static com.cudo.pixelviewer.util.ParameterUtils.*;
 
 @Slf4j
 @RestController
@@ -111,40 +110,56 @@ public class PwrconController {
         return responseMap;
     }
 
-//    @PatchMapping("/name")
-//    public Map<String, Object> patchPwrconName(HttpServletRequest request
-//                                        , @RequestBody Map<String, Object> param) {
-//        long startTime = System.currentTimeMillis();
-//        String apiInfo = "["+ request.getRequestURI() + "] [" + request.getMethod() + "]";
-//        log.info("{} [START] [{}] - {}", apiInfo, startTime, param);
-//
-//        Map<String, Object> responseMap = new HashMap<>();
-//        responseMap.putAll(ParameterUtils.responseOption(ResponseCode.FAIL.getCodeName()));
-//
-//        String[] keyList = {"pwrconId", "pwrconNm"};
-//
-//        try {
-//            parameterValidation(param, keyList);
-//            parameterInt("pwrconId", param.get("pwrconId"), true);
-//            parameterString("pwrconNm", param.get("pwrconNm"), true, 0, null);
-//
-//            responseMap = pwrconService.patchPwrconName(param);
-//        }
-//        catch (ParamException paramException){
-//            log.error("[paramException][patchPwrconName] - {}", paramException.getMessage());
-//            responseMap.put("code", paramException.getCode());
-//            responseMap.put("message", paramException.getMessage());
-//        }
-//        catch (Exception exception) {
-//            log.error("[Exception][patchPwrconName] - {}", exception.getMessage());
-//            responseMap.put("exceptionMessage", exception.getMessage());
-//        }
-//
-//        long endTime = System.currentTimeMillis();
-//        long procTime = endTime-startTime;
-//        log.info("{} [END] [{}] - {}", apiInfo, procTime, responseMap.get("code"));
-//
-//        return responseMap;
-//    }
+    @PutMapping
+    public Map<String, Object> putPwrcon(HttpServletRequest request
+                                        , @RequestBody Map<String, Object> param) {
+        long startTime = System.currentTimeMillis();
+        String apiInfo = "["+ request.getRequestURI() + "] [" + request.getMethod() + "]";
+        log.info("{} [START] [{}] - {}", apiInfo, startTime, param);
 
+        Map<String, Object> responseMap = new HashMap<>();
+        responseMap.putAll(ParameterUtils.responseOption(ResponseCode.FAIL.getCodeName()));
+
+        String[] keyList = {
+                "condeviceId", "ip", "port", "modelNm", "serialNo", "mpcmuCnt", "dpcmuCnt", "state",
+                "spec1", "spec2", "spec3", "ledPwr", "temp", "humi", "ledKey"
+        };
+
+        try {
+            parameterValidation(param, keyList);
+            parameterInt("condeviceId", param.get("condeviceId"), true);
+            parameterString("ip", param.get("ip"), true, 0, null);
+            parameterInt("port", param.get("port"), true);
+            parameterString("modelNm", param.get("modelNm"), true, 0, null);
+            parameterString("serialNo", param.get("serialNo"), true, 0, null);
+            parameterInt("mpcmuCnt", param.get("mpcmuCnt"), true);
+            parameterInt("dpcmuCnt", param.get("dpcmuCnt"), true);
+//            parameterInt("state", param.get("state"), true);
+            parameterString("state", param.get("state"), true, 0, null);
+            parameterString("spec1", param.get("spec1"), true, 0, null);
+            parameterString("spec2", param.get("spec2"), true, 0, null);
+            parameterString("spec3", param.get("spec3"), true, 0, null);
+            parameterInt("ledPwr", param.get("ledPwr"), true);
+            parameterInt("temp", param.get("temp"), true);
+            parameterInt("humi", param.get("humi"), true);
+            parameterString("ledKey", param.get("ledKey"), true, 0, null);
+
+            responseMap = pwrconService.putPwrcon(param);
+        }
+        catch (ParamException paramException){
+            log.error("[paramException][putPwrcon] - {}", paramException.getMessage());
+            responseMap.put("code", paramException.getCode());
+            responseMap.put("message", paramException.getMessage());
+        }
+        catch (Exception exception) {
+            log.error("[Exception][putPwrcon] - {}", exception.getMessage());
+            responseMap.put("exceptionMessage", exception.getMessage());
+        }
+
+        long endTime = System.currentTimeMillis();
+        long procTime = endTime-startTime;
+        log.info("{} [END] [{}] - {}", apiInfo, procTime, responseMap.get("code"));
+
+        return responseMap;
+    }
 }

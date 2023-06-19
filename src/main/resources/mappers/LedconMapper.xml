@@ -59,6 +59,7 @@
         SET
             ip = #{ip},
             port = #{port},
+            model_nm = #{modelNm},
             version = #{version},
             serial_no = #{serialNo},
             firmware_ver = #{firmwareVer},

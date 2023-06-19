@@ -88,28 +88,28 @@ public class PwrconServiceImpl implements PwrconService {
         return resultMap;
     }
 
-//    @Override
-//    @Transactional(rollbackFor = Exception.class)
-//    public Map<String, Object> patchPwrconName(Map<String, Object> param) {
-//        Map<String, Object> resultMap = new HashMap<>();
-//
-//        int pwrconCheck = pwrconMapper.patchPwrconNameValid(param);
-//
-//        if(pwrconCheck == 1){  // Exist : 1
-//            int patchPwrconNameResult = pwrconMapper.patchPwrconName(param);
-//
-//            if(patchPwrconNameResult == 1){ // Success : 1
-//                resultMap.putAll(ParameterUtils.responseOption(ResponseCode.SUCCESS.getCodeName()));
-//            }
-//            else{
-//                resultMap.put("code", ResponseCode.FAIL_UPDATE_PWRCON.getCode());
-//                resultMap.put("message", ResponseCode.FAIL_UPDATE_PWRCON.getMessage());
-//            }
-//        }
-//        else{
-//            resultMap.put("code", ResponseCode.FAIL_NOT_EXIST_PWRCON.getCode());
-//            resultMap.put("message", ResponseCode.FAIL_NOT_EXIST_PWRCON.getMessage());
-//        }
-//        return resultMap;
-//    }
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public Map<String, Object> putPwrcon(Map<String, Object> param) {
+        Map<String, Object> resultMap = new HashMap<>();
+
+        int pwrconCheck = pwrconMapper.putPwrconValid(param);
+
+        if(pwrconCheck == 1){  // Exist : 1
+            int patchPwrconNameResult = pwrconMapper.putPwrcon(param);
+
+            if(patchPwrconNameResult == 1){ // Success : 1
+                resultMap.putAll(ParameterUtils.responseOption(ResponseCode.SUCCESS.getCodeName()));
+            }
+            else{
+                resultMap.put("code", ResponseCode.FAIL_UPDATE_PWRCON.getCode());
+                resultMap.put("message", ResponseCode.FAIL_UPDATE_PWRCON.getMessage());
+            }
+        }
+        else{
+            resultMap.put("code", ResponseCode.FAIL_NOT_EXIST_PWRCON.getCode());
+            resultMap.put("message", ResponseCode.FAIL_NOT_EXIST_PWRCON.getMessage());
+        }
+        return resultMap;
+    }
 }
