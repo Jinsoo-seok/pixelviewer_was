@@ -17,7 +17,7 @@ public interface LedconMapper {
     int deleteLedconValid(Map<String, Object> param);
     int deleteLedcon(Map<String, Object> param);
 
-//    int patchLedconNameValid(Map<String, Object> param);
-//    int patchLedconName(Map<String, Object> param);
+    int putLedconValid(Map<String, Object> param);
+    int putLedcon(Map<String, Object> param);
 
 }

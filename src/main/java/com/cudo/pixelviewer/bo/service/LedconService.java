@@ -10,6 +10,6 @@ public interface LedconService {
 
     Map<String, Object> deleteLedcon(Map<String, Object> param);
 
-//    Map<String, Object> patchLedconName(Map<String, Object> param);
+    Map<String, Object> putLedcon(Map<String, Object> param);
 
 }

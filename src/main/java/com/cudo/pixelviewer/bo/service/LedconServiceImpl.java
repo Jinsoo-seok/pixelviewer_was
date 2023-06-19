@@ -88,28 +88,28 @@ public class LedconServiceImpl implements LedconService {
         return resultMap;
     }
 
-//    @Override
-//    @Transactional(rollbackFor = Exception.class)
-//    public Map<String, Object> patchLedconName(Map<String, Object> param) {
-//        Map<String, Object> resultMap = new HashMap<>();
-//
-//        int ledconCheck = ledconMapper.patchLedconNameValid(param);
-//
-//        if(ledconCheck == 1){  // Exist : 1
-//            int patchLedconNameResult = ledconMapper.patchLedconName(param);
-//
-//            if(patchLedconNameResult == 1){ // Success : 1
-//                resultMap.putAll(ParameterUtils.responseOption(ResponseCode.SUCCESS.getCodeName()));
-//            }
-//            else{
-//                resultMap.put("code", ResponseCode.FAIL_UPDATE_LEDCON.getCode());
-//                resultMap.put("message", ResponseCode.FAIL_UPDATE_LEDCON.getMessage());
-//            }
-//        }
-//        else{
-//            resultMap.put("code", ResponseCode.FAIL_NOT_EXIST_LEDCON.getCode());
-//            resultMap.put("message", ResponseCode.FAIL_NOT_EXIST_LEDCON.getMessage());
-//        }
-//        return resultMap;
-//    }
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public Map<String, Object> putLedcon(Map<String, Object> param) {
+        Map<String, Object> resultMap = new HashMap<>();
+
+        int ledconCheck = ledconMapper.putLedconValid(param);
+
+        if(ledconCheck == 1){  // Exist : 1
+            int putLedconResult = ledconMapper.putLedcon(param);
+
+            if(putLedconResult == 1){ // Success : 1
+                resultMap.putAll(ParameterUtils.responseOption(ResponseCode.SUCCESS.getCodeName()));
+            }
+            else{
+                resultMap.put("code", ResponseCode.FAIL_UPDATE_LEDCON.getCode());
+                resultMap.put("message", ResponseCode.FAIL_UPDATE_LEDCON.getMessage());
+            }
+        }
+        else{
+            resultMap.put("code", ResponseCode.FAIL_NOT_EXIST_LEDCON.getCode());
+            resultMap.put("message", ResponseCode.FAIL_NOT_EXIST_LEDCON.getMessage());
+        }
+        return resultMap;
+    }
 }
