@@ -22,4 +22,6 @@ public interface PresetMapper {
     int patchPresetNameValid(Map<String, Object> param);
     int patchPresetName(Map<String, Object> param);
 
+    int putPresetValid(Map<String, Object> param);
+    int putPreset(Map<String, Object> param);
 }

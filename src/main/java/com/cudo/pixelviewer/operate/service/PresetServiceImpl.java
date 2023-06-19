@@ -6,6 +6,7 @@ import com.cudo.pixelviewer.util.ResponseCode;
 import com.cudo.pixelviewer.vo.PresetVo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
 import java.util.List;
@@ -52,6 +53,7 @@ public class PresetServiceImpl implements PresetService {
 
     // TODO : 중복체크, 에러코드
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public Map<String, Object> postPreset(Map<String, Object> param) {
         Map<String, Object> resultMap = new HashMap<>();
         Map<String, Object> dataMap = new HashMap<>();
@@ -60,9 +62,9 @@ public class PresetServiceImpl implements PresetService {
         int presetCheck = 0;
 
         if(presetCheck == 0){ // Not Exist : 0
-            int postScreenResult = presetMapper.postPreset(param);
+            int postPresetResult = presetMapper.postPreset(param);
 
-            if(postScreenResult == 1){ // Success : 1
+            if(postPresetResult == 1){ // Success : 1
                 dataMap.put("presetId", param.get("presetId"));
                 resultMap.putAll(ParameterUtils.responseOption(ResponseCode.SUCCESS.getCodeName()));
                 resultMap.put("data", dataMap);
@@ -81,6 +83,7 @@ public class PresetServiceImpl implements PresetService {
 
     // TODO : 에러코드
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public Map<String, Object> deletePreset(Map<String, Object> param) {
         Map<String, Object> resultMap = new HashMap<>();
 
@@ -105,15 +108,16 @@ public class PresetServiceImpl implements PresetService {
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public Map<String, Object> patchPresetName(Map<String, Object> param) {
         Map<String, Object> resultMap = new HashMap<>();
 
-        int screenCheck = presetMapper.patchPresetNameValid(param);
+        int presetCheck = presetMapper.patchPresetNameValid(param);
 
-        if(screenCheck == 1){  // Exist : 1
-            int patchScreenNameResult = presetMapper.patchPresetName(param);
+        if(presetCheck == 1){  // Exist : 1
+            int patchPresetNameResult = presetMapper.patchPresetName(param);
 
-            if(patchScreenNameResult == 1){ // Success : 1
+            if(patchPresetNameResult == 1){ // Success : 1
                 resultMap.putAll(ParameterUtils.responseOption(ResponseCode.SUCCESS.getCodeName()));
             }
             else{
@@ -129,14 +133,34 @@ public class PresetServiceImpl implements PresetService {
     }
 
     @Override
-    public Map<String, Object> patchPresetLayout(Map<String, Object> param) {
+    @Transactional(rollbackFor = Exception.class)
+    public Map<String, Object> putPreset(Map<String, Object> param) {
         Map<String, Object> resultMap = new HashMap<>();
         resultMap.putAll(ParameterUtils.responseOption(ResponseCode.SUCCESS.getCodeName()));
+
+        int presetCheck = presetMapper.putPresetValid(param);
+
+        if(presetCheck == 1){  // Exist : 1
+            int putPresetResult = presetMapper.putPreset(param);
+
+            if(putPresetResult == 1){ // Success : 1
+                resultMap.putAll(ParameterUtils.responseOption(ResponseCode.SUCCESS.getCodeName()));
+            }
+            else{
+                resultMap.put("code", ResponseCode.FAIL_UPDATE_SCREEN.getCode());
+                resultMap.put("message", ResponseCode.FAIL_UPDATE_SCREEN.getMessage());
+            }
+        }
+        else{
+            resultMap.put("code", ResponseCode.FAIL_NOT_EXIST_SCREEN.getCode());
+            resultMap.put("message", ResponseCode.FAIL_NOT_EXIST_SCREEN.getMessage());
+        }
         return resultMap;
     }
 
     // TODO : LED 컨트롤러 연동
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public Map<String, Object> patchPresetRun(Map<String, Object> param) {
         Map<String, Object> resultMap = new HashMap<>();
         resultMap.putAll(ParameterUtils.responseOption(ResponseCode.SUCCESS.getCodeName()));
@@ -145,6 +169,7 @@ public class PresetServiceImpl implements PresetService {
 
     // TODO : LED 컨트롤러 연동
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public Map<String, Object> patchPresetStop(Map<String, Object> param) {
         Map<String, Object> resultMap = new HashMap<>();
         resultMap.putAll(ParameterUtils.responseOption(ResponseCode.SUCCESS.getCodeName()));

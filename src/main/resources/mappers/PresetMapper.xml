@@ -52,7 +52,18 @@
     <update id="patchPresetName">
         UPDATE Presets
         SET preset_nm = #{presetNm}
-        WHERE Presets.preset_id = #{presetId}.
+        WHERE Presets.preset_id = #{presetId}
+    </update>
+
+    <select id="putPresetValid" resultType="int">
+        SELECT COUNT(preset_id)
+        FROM Presets
+        WHERE Presets.preset_id = #{presetId}
+    </select>
+    <update id="putPreset">
+        UPDATE Presets
+        SET preset_nm = #{presetNm}
+        WHERE Presets.preset_id = #{presetId}
     </update>
 
 </mapper>

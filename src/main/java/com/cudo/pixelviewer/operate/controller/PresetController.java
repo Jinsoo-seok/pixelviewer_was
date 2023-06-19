@@ -172,9 +172,9 @@ public class PresetController {
         return responseMap;
     }
 
-    // TODO : 로직 설명 듣기
-    @PatchMapping("/layout")
-    public Map<String, Object> patchPresetLayout(HttpServletRequest request
+    // TODO : 테이블 필드 수정되면 작업 예정
+    @PutMapping
+    public Map<String, Object> putPreset(HttpServletRequest request
             , @RequestBody Map<String, Object> param) {
         long startTime = System.currentTimeMillis();
         String apiInfo = "["+ request.getRequestURI() + "] [" + request.getMethod() + "]";
@@ -183,22 +183,22 @@ public class PresetController {
         Map<String, Object> responseMap = new HashMap<>();
         responseMap.putAll(ParameterUtils.responseOption(ResponseCode.FAIL.getCodeName()));
 
-//        String[] keyList = {"presetId", "presetNm"};
+        String[] keyList = {"presetId", "presetNm"};
 
         try {
-//            parameterValidation(param, keyList);
-//            parameterInt("presetId", param.get("presetId"), true);
-//            parameterString("presetNm", param.get("presetNm"), true, 0, null);
+            parameterValidation(param, keyList);
+            parameterInt("presetId", param.get("presetId"), true);
+            parameterString("presetNm", param.get("presetNm"), true, 0, null);
 
-            responseMap = presetService.patchPresetLayout(param);
+            responseMap = presetService.putPreset(param);
         }
-//        catch (ParamException paramException){
-//            log.error("[paramException][patchPresetLayout] - {}", paramException.getMessage());
-//            responseMap.put("code", paramException.getCode());
-//            responseMap.put("message", paramException.getMessage());
-//        }
+        catch (ParamException paramException){
+            log.error("[paramException][putPreset] - {}", paramException.getMessage());
+            responseMap.put("code", paramException.getCode());
+            responseMap.put("message", paramException.getMessage());
+        }
         catch (Exception exception) {
-            log.error("[Exception][patchPresetLayout] - {}", exception.getMessage());
+            log.error("[Exception][putPreset] - {}", exception.getMessage());
             responseMap.put("exceptionMessage", exception.getMessage());
         }
 
