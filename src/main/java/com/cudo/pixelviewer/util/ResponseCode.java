@@ -29,6 +29,9 @@ public enum ResponseCode {
 
 
     // Operate : 3000
+    // Setting : 3000
+    FAIL_UPDATE_SETTING_IMAGE_DEFAULT_PLAYTIME(3000, "FailUpdateSettingImageDefaultPlaytime", "Fail Update Setting ImageDefaultPlaytime"),
+
     // Screen : 3100
     FAIL_INSERT_SCREEN(3100, "FailedInsertScreen", "Failed Insert Screen"),
     FAIL_UPDATE_SCREEN(3101, "FailedUpdateScreen", "Failed Update Screen"),
