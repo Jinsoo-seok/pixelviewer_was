@@ -67,6 +67,16 @@ public enum ResponseCode {
     FAIL_DELETE_PLAYLIST_CONTENTS(3513, "FailedDeletePlaylistContents", "Failed Delete PlaylistContents"),
     FAIL_NOT_EXIST_PLAYLIST_CONTENTS(3514, "FailedNotExistPlaylistContents", "Failed Not Exist PlaylistContents"),
 
+    // External : 3600
+    FAIL_INSERT_EXTERNAL_VIDEO(3600, "FailedInsertExternalVideo", "Failed Insert ExternalVideo"),
+    FAIL_UPDATE_EXTERNAL_VIDEO(3601, "FailedUpdateExternalVideo", "Failed Update ExternalVideo"),
+    FAIL_DUPLICATE_EXTERNAL_VIDEO(3602, "FailedDuplicateExternalVideo", "Failed Duplicate ExternalVideo"),
+    FAIL_UNSUPPORTED_TYPE_EXTERNAL_VIDEO(3603, "FailedUnsupportedTypeExternalVideo", "Failed Unsupported Type ExternalVideo"),
+
+    FAIL_INSERT_EXTERNAL_INFO(3603, "FailedInsertExternalInfo", "Failed Insert ExternalInfo"),
+    FAIL_UPDATE_EXTERNAL_INFO(3604, "FailedUpdateExternalInfo", "Failed Update ExternalInfo"),
+    FAIL_DUPLICATE_EXTERNAL_INFO(3605, "FailedDuplicateExternalInfo", "Failed Duplicate ExternalInfo"),
+
 
     // BO : 4000
     // Pwrcon : 4100
