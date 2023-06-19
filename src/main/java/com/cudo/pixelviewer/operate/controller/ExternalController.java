@@ -24,6 +24,12 @@ public class ExternalController {
 
     final ExternalService externalService;
 
+    // type            (LayerObjects)
+    // 10 : 외부 영상   (ExternalVideo)
+    // 20 : 외부 정보   (External_info)
+    // 30 : 자막       (Subtitles)
+
+
     @GetMapping("/video/{layerId}")
     public Map<String, Object> getExternalVideo(HttpServletRequest request
                                             , @PathVariable String layerId) {
@@ -105,10 +111,12 @@ public class ExternalController {
         Map<String, Object> responseMap = new HashMap<>();
         responseMap.putAll(ParameterUtils.responseOption(ResponseCode.FAIL.getCodeName()));
 
-        String[] keyList = {"type", "posX", "posY", "width", "height", "ord"};
+        String[] keyList = {"layerId", "objectNm", "type", "posX", "posY", "width", "height", "ord"};
 
         try {
             parameterValidation(param, keyList);
+            parameterInt("layerId", param.get("layerId"), true);
+            parameterString("objectNm", param.get("objectNm"), true, 0, null);
             parameterInt("type", param.get("type"), true);
             parameterInt("posX", param.get("posX"), true);
             parameterInt("posY", param.get("posY"), true);

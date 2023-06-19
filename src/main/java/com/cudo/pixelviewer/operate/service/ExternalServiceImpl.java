@@ -41,7 +41,6 @@ public class ExternalServiceImpl implements ExternalService {
         Map<String, Object> dataMap = new HashMap<>();
 
         if(param.get("type").equals(10)) {
-            // 어차피 없으면 insert, 있으면 update인데 vaild 체크가 필요한지? >> id값 찾는 용도로 사용
             Integer externalCheck = externalMapper.postExternalVideoValid(param);
 
             // 없으면 insert (LayerObjects, ExternalVideo)
@@ -85,24 +84,40 @@ public class ExternalServiceImpl implements ExternalService {
         Map<String, Object> resultMap = new HashMap<>();
         Map<String, Object> dataMap = new HashMap<>();
 
-        int externalCheck = externalMapper.postExternalInfoValid(param);
+        if(param.get("type").equals(20)) {
+            Integer externalCheck = externalMapper.postExternalInfoValid(param);
 
-        if(externalCheck == 0){ // Not Exist : 0
-            int postExternalResult = externalMapper.postExternalInfo(param);
+            // 없으면 insert (LayerObjects, External_info)
+            if (externalCheck == null) {
+                int postExternalResult = externalMapper.postExternalInfo(param);
 
-            if(postExternalResult == 1){ // Success : 1
-                dataMap.put("externalId", param.get("externalId"));
-                resultMap.putAll(ParameterUtils.responseOption(ResponseCode.SUCCESS.getCodeName()));
-                resultMap.put("data", dataMap);
+                if (postExternalResult == 1) { // Success : 1
+                    dataMap.put("externalId", param.get("externalId"));
+                    resultMap.putAll(ParameterUtils.responseOption(ResponseCode.SUCCESS.getCodeName()));
+                    resultMap.put("data", dataMap);
+                } else {
+                    resultMap.put("code", ResponseCode.FAIL_INSERT_EXTERNAL_INFO.getCode());
+                    resultMap.put("message", ResponseCode.FAIL_INSERT_EXTERNAL_INFO.getMessage());
+                }
             }
-            else{
-                resultMap.put("code", ResponseCode.FAIL_INSERT_EXTERNAL_INFO.getCode());
-                resultMap.put("message", ResponseCode.FAIL_INSERT_EXTERNAL_INFO.getMessage());
+            // 있으면 update
+            else {
+                param.put("objectId", externalCheck);
+                int putExternalResult = externalMapper.putExternalInfo(param);
+
+                if (putExternalResult == 1) { // Success : 1
+                    dataMap.put("externalId", param.get("externalId"));
+                    resultMap.putAll(ParameterUtils.responseOption(ResponseCode.SUCCESS.getCodeName()));
+                    resultMap.put("data", dataMap);
+                } else {
+                    resultMap.put("code", ResponseCode.FAIL_UPDATE_EXTERNAL_INFO.getCode());
+                    resultMap.put("message", ResponseCode.FAIL_UPDATE_EXTERNAL_INFO.getMessage());
+                }
             }
         }
         else{
-            resultMap.put("code", ResponseCode.FAIL_DUPLICATE_EXTERNAL_INFO.getCode());
-            resultMap.put("message", ResponseCode.FAIL_DUPLICATE_EXTERNAL_INFO.getMessage());
+            resultMap.put("code", ResponseCode.FAIL_UNSUPPORTED_TYPE_EXTERNAL_INFO.getCode());
+            resultMap.put("message", ResponseCode.FAIL_UNSUPPORTED_TYPE_EXTERNAL_INFO.getMessage());
         }
         return resultMap;
     }

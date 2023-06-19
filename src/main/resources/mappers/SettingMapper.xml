@@ -9,5 +9,11 @@
         WHERE display_id = 1
     </select>
 
+    <select id="putSettingImageDefaultPlaytime" resultType="Map">
+        SELECT *
+        FROM Displays
+        WHERE display_id = 1
+    </select>
+
 </mapper>
 

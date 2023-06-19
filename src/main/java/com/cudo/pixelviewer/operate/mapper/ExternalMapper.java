@@ -14,7 +14,8 @@ public interface ExternalMapper {
     int postExternalVideo(Map<String, Object> param);
     int putExternalVideo(Map<String, Object> param);
 
-    int postExternalInfoValid(Map<String, Object> param);
+    Integer postExternalInfoValid(Map<String, Object> param);
     int postExternalInfo(Map<String, Object> param);
+    int putExternalInfo(Map<String, Object> param);
 
 }
